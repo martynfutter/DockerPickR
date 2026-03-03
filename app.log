@@ -6,3 +6,8 @@ paretopick-r  | [2026-03-03T16:17:32.783] [INFO] shiny-server - Shiny Server v1.
 paretopick-r  | [2026-03-03T16:17:32.784] [INFO] shiny-server - Using config file "/etc/shiny-server/shiny-server.conf"
 paretopick-r  | [2026-03-03T16:17:32.798] [WARN] shiny-server - Running as root unnecessarily is a security risk! You could be running more securely as non-root.
 paretopick-r  | [2026-03-03T16:17:32.800] [INFO] shiny-server - Starting listener on http://[::]:3838
+su: ignoring --preserve-environment, it's mutually exclusive with --login
+Error in FUN(X[[i]], ...) : there is no package called ‘corrplot’
+Calls: runApp ... sourceUTF8 -> eval -> eval -> ..stacktraceon.. -> lapply -> FUN
+Execution halted
+

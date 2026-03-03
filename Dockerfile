@@ -13,6 +13,8 @@ FROM rocker/shiny:4.4.2
 #    curl / openssl     -> HTTPS / network support
 #    chromium           -> replaces PhantomJS for webshot2 map exports
 # -----------------------------------------------------------------
+
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgdal-dev \
     libgeos-dev \
@@ -28,6 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libcurl4-openssl-dev \
     libxml2-dev \
+    libglpk-dev \       
     chromium \
     chromium-driver \
     git \
