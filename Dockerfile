@@ -30,7 +30,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libssl-dev \
     libcurl4-openssl-dev \
     libxml2-dev \
-    libglpk-dev \       
+    libglpk-dev \
+    librsvg2-dev \       
     chromium \
     chromium-driver \
     git \
