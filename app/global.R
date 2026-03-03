@@ -20,19 +20,26 @@ foo1 <- function(x) {
 }
 
 ## check if any packages are missing (not only here but also for external convert_optain)
-foo1(c("cluster", "corrplot", "DT","fpc", "fs", "fst", 
-       "geosphere",  "ggplot2",  "gridExtra", "ini", "leaflet","leaflet.extras", "leafsync",
-       "patchwork", "plotly",  "processx",  "quanteda", "scales", "sf", "shiny",
-       "shinycssloaders", "shinydashboard", "shinyjs", "shinyWidgets", 
-       "sp",# dependency = foreign 
-       "spdep", #dependency = Matrix
-       "svglite", "tmap",
-       "tidyverse", #dependency = stringr & tidyr
-       "viridis", "webshot"))#Docker needs webshot2, only works in Chrome
+##foo1(c("cluster", "corrplot", "DT","fpc", "fs", "fst", 
+##       "geosphere",  "ggplot2",  "gridExtra", "ini", "leaflet","leaflet.extras", "leafsync",
+##       "patchwork", "plotly",  "processx",  "quanteda", "scales", "sf", "shiny",
+##       "shinycssloaders", "shinydashboard", "shinyjs", "shinyWidgets", 
+##       "sp",# dependency = foreign 
+##       "spdep", #dependency = Matrix
+##       "svglite", "tmap",
+##       "tidyverse", #dependency = stringr & tidyr
+##       "viridis", "webshot2"))#Docker needs webshot2, only works in Chrome
+# In Docker, packages are pre-installed via renv::restore() at build time.
+# foo1() is disabled — just load libraries directly.
+packages <- c("cluster", "corrplot", "DT", "fpc", "fs", "fst",
+              "geosphere", "ggplot2", "gridExtra", "ini", "leaflet",
+              "leaflet.extras", "leafsync", "patchwork", "plotly",
+              "processx", "quanteda", "scales", "sf", "shiny",
+              "shinycssloaders", "shinydashboard", "shinyjs", "shinyWidgets",
+              "sp", "spdep", "svglite", "tmap", "tidyverse", "viridis",
+              "webshot2")
 
-if (!webshot::is_phantomjs_installed()) {
-  webshot::install_phantomjs()
-}
+invisible(lapply(packages, library, character.only = TRUE))
 
 
 options(shiny.maxRequestSize = 1000*1024^2)

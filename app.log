@@ -1,0 +1,8 @@
+paretopick-r  | [2026-03-03T15:34:12.864] [INFO] shiny-server - Shiny Server v1.5.23.1031 (Node.js v20.17.0)
+paretopick-r  | [2026-03-03T15:34:12.865] [INFO] shiny-server - Using config file "/etc/shiny-server/shiny-server.conf"
+paretopick-r  | [2026-03-03T15:34:12.880] [WARN] shiny-server - Running as root unnecessarily is a security risk! You could be running more securely as non-root.
+paretopick-r  | [2026-03-03T15:34:12.883] [INFO] shiny-server - Starting listener on http://[::]:3838
+paretopick-r  | [2026-03-03T16:17:32.783] [INFO] shiny-server - Shiny Server v1.5.23.1031 (Node.js v20.17.0)
+paretopick-r  | [2026-03-03T16:17:32.784] [INFO] shiny-server - Using config file "/etc/shiny-server/shiny-server.conf"
+paretopick-r  | [2026-03-03T16:17:32.798] [WARN] shiny-server - Running as root unnecessarily is a security risk! You could be running more securely as non-root.
+paretopick-r  | [2026-03-03T16:17:32.800] [INFO] shiny-server - Starting listener on http://[::]:3838
