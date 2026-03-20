@@ -2474,18 +2474,30 @@ pca_settings = function(input){
   return(settings)
 }
 
+#deli = function(path){
+#
+#which_del <- readLines(path, n = 1)
+#
+#if (grepl(',', which_del)) {
+#  deliM = ','
+#} else if (grepl(' ', which_del)) {
+#  deliM = ''
+#} else {
+#  deliM = ';' #this will break
+#}
+#return(deliM)
+#}
+
 deli = function(path){
-
-which_del <- readLines(path, n = 1)
-
-if (grepl(',', which_del)) {
-  deliM = ','
-} else if (grepl(' ', which_del)) {
-  deliM = ' '
-} else {
-  deliM = ';' #this will break
-}
-
-return(deliM)
-
+  which_del <- readLines(path, n = 1)
+  if (grepl('\t', which_del)) {
+    deliM = '\t'
+  } else if (grepl(',', which_del)) {
+    deliM = ','
+  } else if (grepl(' ', which_del)) {
+    deliM = ' '
+  } else {
+    deliM = ';'
+  }
+  return(deliM)
 }

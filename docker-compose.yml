@@ -7,16 +7,10 @@ services:
     ports:
       - "3838:3838"
       - "4000:4000"
-    volumes:
-      # Persistent data — survives container restarts
-      - ./data:/srv/shiny-server/data
-      - ./input:/srv/shiny-server/input
-      - ./output:/srv/shiny-server/output
-      # Live-reload for development (comment out for production)
-      - ./app:/srv/shiny-server/app
     environment:
-      - CHROMOTE_CHROME=/usr/bin/chromium
+      - CHROMOTE_CHROME=/usr/bin/chromium-browser
       - R_WARN=-1
+      - CHROMOTE_CHROME_ARGS=--no-sandbox 
     restart: unless-stopped
     deploy:
       resources:

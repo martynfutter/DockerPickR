@@ -13,6 +13,8 @@ FROM rocker/shiny:4.4.2
 #    curl / openssl     -> HTTPS / network support
 #    chromium           -> replaces PhantomJS for webshot2 map exports
 # -----------------------------------------------------------------
+
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libgdal-dev \
     libgeos-dev \
@@ -29,14 +31,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev \
     libxml2-dev \
     libglpk-dev \
-    librsvg2-dev \
+    librsvg2-dev \       
     chromium \
     chromium-driver \
     git \
     && rm -rf /var/lib/apt/lists/*
 
 # Tell webshot2 where to find the browser
-ENV CHROMOTE_CHROME=/usr/bin/chromium-browser
+ENV CHROMOTE_CHROME=/usr/bin/chromium
 
 # -----------------------------------------------------------------
 # 2. Restore R packages from renv.lock
@@ -58,36 +60,25 @@ RUN R -e "install.packages('renv', repos='https://cloud.r-project.org'); \
 RUN R -e "install.packages('webshot2', repos='https://cloud.r-project.org')"
 
 # -----------------------------------------------------------------
-# 4. Copy app source, config, and data folders
-#    data/, input/, and output/ are baked into the image rather than
-#    mounted as volumes. Files written during a session are lost when
-#    the container stops — this is acceptable for this use case.
-#    NOTE: if data/, input/, or output/ are listed in .dockerignore,
-#    remove them or the COPY commands below will copy nothing.
+# 4. Copy app source and Shiny Server config
 # -----------------------------------------------------------------
 COPY app/               /srv/shiny-server/app/
 COPY shiny-server.conf  /etc/shiny-server/shiny-server.conf
-COPY data/              /srv/shiny-server/data/
-COPY input/             /srv/shiny-server/input/
-COPY output/            /srv/shiny-server/output/
 
-# -----------------------------------------------------------------
-# 5. Permissions — shiny user needs write access to all data dirs
-#    This must run as root (before USER shiny) so chown succeeds.
-#    Note: a Hard Reset in the app will delete the baked-in files
-#    for the duration of that session; they return on next restart.
-# -----------------------------------------------------------------
-RUN chown -R shiny:shiny \
-    /srv/shiny-server/app \
+# Create the directories global.R writes to at runtime
+RUN mkdir -p \
     /srv/shiny-server/data \
     /srv/shiny-server/input \
     /srv/shiny-server/output
 
 # -----------------------------------------------------------------
-# 6. Drop root — run as the shiny user from here on
-#    This eliminates the "Running as root" security warning.
+# 5. Permissions — shiny user needs write access to data dirs
 # -----------------------------------------------------------------
-USER shiny
+RUN chown -R shiny:shiny \
+    /srv/shiny-server/data \
+    /srv/shiny-server/input \
+    /srv/shiny-server/output \
+    /srv/shiny-server/app
 
 EXPOSE 3838
 
